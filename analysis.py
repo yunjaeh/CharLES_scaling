@@ -19,15 +19,20 @@ step_save= np.arange(-1,500,50)
 step_save[0]+=1
 step_data = np.ones(len(step), np.bool)
 step_data[step_save] = 0
-print(step,step_save)
+# print(step,step_save)
 
+num_cells = 38475335
 num_nodes = [2, 4, 8, 16, 32, 64]
 
+for node in num_nodes:
+    print('# nodes:', node,
+          ', # cores:', 68*node,
+          ', # cells/core:', num_cells/(68*node))
 time_sec_dict = dict()
 norm_spd_dict = dict()
 
 for node in num_nodes:
-    print(node)
+    # print(node)
     time_sec_dict[node]=[]
     norm_spd_dict[node]=[]
     with open('./log/log.'+str(node),'r') as fp:
@@ -41,11 +46,8 @@ for node in num_nodes:
             except:
                 continue
 
-#print(time_sec_dict)
-#print(norm_spd_dict)
 
-# %% plot (test)
-#print(time_sec, norm_spd)
+# %% plot
 
 mean_norm_spd = []
 mean_time_sec = []
@@ -106,16 +108,11 @@ plt.xticks(num_nodes)
 plt.xlabel('# nodes')
 plt.ylabel('Speedup')
 plt.legend(['Ideal','Computation only','Computation+save'])
+plt.title('Speedup curve')
 plt.grid()
 
 plt.show()
 
-# %%
-num_cells = 38475335
 
-for node in num_nodes:
-    print('# nodes:', node,
-          ', # cores:', 68*node,
-          ', # cells/core:', num_cells/(68*node))
 
 
