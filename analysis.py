@@ -30,7 +30,7 @@ for node in num_nodes:
     print(node)
     time_sec_dict[node]=[]
     norm_spd_dict[node]=[]
-    with open('log.'+str(node),'r') as fp:
+    with open('./log/log.'+str(node),'r') as fp:
         for line in fp:
             line_split=line.split()
             try:
@@ -92,6 +92,7 @@ plt.plot(num_nodes,mean_time_sec,'bo-')
 plt.xticks(num_nodes)
 plt.yticks(range(0,120,20))
 plt.ylim(0,100)
+plt.title('Mean time taken for advanding time steps')
 plt.xlabel('# nodes')
 plt.ylabel('Time [sec]')
 plt.grid()
@@ -106,7 +107,7 @@ plt.xlabel('# nodes')
 plt.ylabel('Speedup')
 plt.legend(['Ideal','Computation only','Computation+save'])
 plt.grid()
-plt.title('Mean team per each step')
+
 plt.show()
 
 # %%
