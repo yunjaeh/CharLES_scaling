@@ -5,5 +5,5 @@
 - Test case:
   LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
   
-- Results
-/results/speedup_curve
+- Results:
+![Speedup Curve](/results/speedup_curve)
