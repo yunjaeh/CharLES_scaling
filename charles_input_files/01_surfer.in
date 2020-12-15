@@ -1,0 +1,43 @@
+SURF STL_GROUP ../geometry/domain_X0.stl ../geometry/domain_X1.stl ../geometry/domain_Y0.stl ../geometry/domain_Y1.stl ../geometry/domain_Z0.stl ../geometry/domain_Z1.stl ../geometry/outfall_buildings.stl 
+#  ../geometry/outfall_1cm_SW.stl
+
+# rename building geometries to specify BCs later
+# RENAME_ZONE outfall_house building
+# RENAME_ZONE outfall_buildings buildings
+
+# rename boundaries
+RENAME_ZONE X0 x0_turb
+RENAME_ZONE X1 outlet
+RENAME_ZONE Y0 ground
+RENAME_ZONE Y1 top
+
+FLIP SUBZONES 0,1,2,3,4,5
+FLIP SUBZONES 6
+
+# translate building geometries
+TRANSLATE DX -1.165 -0.009 -1.57 ZONE_NAMES buildings
+# TRANSLATE DX 0.0 1.005 0.0 ZONE_NAMES house
+
+# rotate in clockwise direction
+# ROTATE AXIS 0 0 1 POINT 0 0 0 ANGLE 90.0 ZONE_NAMES buildings
+# ROTATE AXIS 1 0 0 POINT 0 0 0 ANGLE -90.0 ZONE_NAMES buildings
+ROTATE AXIS 0 1 0 POINT 0 0 0 ANGLE 90.0 ZONE_NAMES buildings
+
+
+# RUN_DIAGNOSTICS WITH_DETAILS
+# REPAIR_LINEAR_TRIS BY DELETION
+ZIP_OPEN_EDGES ALL
+ALIGN_NORMALS SEED 12 
+# REFINE_TRIS ZONE_NAMES * DELTA 8 
+# REFINE_TRIS ZONE_NAMES ground DELTA 5
+# REFINE_TRIS ZONE_NAMES buildings DELTA 0.2
+
+INTERSECT SUBZONES 2,3 6
+
+# CLOSE_OPEN_EDGE_LOOPS
+# GROUP_DYNAMIC_EDGES SUBZONE_BOUNDARY 
+# TRANSLATE DX 250 0 250 ALL
+SET_PERIODIC ZONES Z0 Z1 CART 0 0 500
+RUN_DIAGNOSTICS WITH_DETAILS
+WRITE_SBIN outfall_surfer.sbin
+# INTERACTIVE

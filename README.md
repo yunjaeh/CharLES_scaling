@@ -8,6 +8,13 @@
 ### Test case
 LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
+- Computational domain
+    - Domain size: 600 m x 500 m x 150 m ..
+    (streamwise x spanwise x vertical)
+    - Geometries within 100 m from the target house
+
+    (add image)
+
 - Computational grid 
 
 |    | # cells | Background cell size (m)| Smallest cell size (m)|
@@ -17,8 +24,8 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Inflow condition
     - Turbulent ABL with optimization
-    - Wind speed and direction from measurement
-    : U_{ref} = 1.67 m/s @ 25 m, WEST
+    - Wind speed and direction from measurement..
+    : U_ref = 1.67 m/s @ 25 m, WEST
     - Reynolds stress: similarity relation
 
 - Boundary conditions
@@ -27,14 +34,19 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
     - Two sides: periodic
     - Outlet
 
-### Scaling study setup
-- stampede2 cluster 
-    - KNL computing nodes
+### Scaling study
+- Stampede2 cluster confiuguration
+    - KNL computing nodes ..
       Intel Xeon Phi 7250 (68 CPUs / node)
     - Clock rate: 1.4 Ghz
     - RAM: 96GB DDR4 plus 16GB high-speed MCDRAM
     - Max # of nodes for normal job: 256 (17,408 cores)
     - Max duration: 48 hours
+
+- Test setup 
+    - Run for 500 time steps
+    - Write full solution data every 50 steps
+    - Interpolate initial data from the results using coarse mesh
 
 - \# nodes & CPUs
  
@@ -45,7 +57,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 |#Cells / #CPUs (fine mesh)| | | | | | |
 
 
-# Results:
+### Results:
 
 ![time each step](results/time_per_step.png)
 

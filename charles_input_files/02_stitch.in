@@ -1,0 +1,66 @@
+# -------------------------------------------------- #
+#   Bangladesh case, Outfall slum
+#   - stitch.in script for meshing
+#
+# -------------------------------------------------- #
+# PART SURF: read prelimiary surface file (after SURFER step)
+PART SURF SBIN ./outfall_surfer.sbin 
+# \   SCALE 0.01 0.01 0.01
+
+# HCP_PACK: mesh packing (shape of cells)
+#   - default: Octahedral Voronoi 
+#   - CART: Cartesian
+# HCP_PACK CART
+
+
+# -------------------------------------------------- #
+# Background mesh and refinement
+# -------------------------------------------------- #
+# HCP_DELTA: background resolution in meter
+# HCP_DELTA 8 # base mesh
+HCP_DELTA 6
+
+
+# HCP_WINDOW: refinement around surfaces or in a volume
+# Usage:
+#   - HCP_WINDOW FAZONE ? LEVEL ? N ?
+#   - HCP_WINDOW TCONE x0 y0 z0 r0 x1 y1 z1 r1 LEVEL ? N ?
+#   - HCP_WINDOW BOX x0 x1 y0 y1 z0 z1 LEVEL ? N ?
+
+# Surface zones
+HCP_WINDOW FAZONE ground LEVEL 1
+HCP_WINDOW FAZONE buildings LEVEL 5 N 20
+
+# Around building area 
+HCP_WINDOW TCONE 0 0 0 150 0 50 0 150 LEVEL 2 N 10
+HCP_WINDOW TCONE 0 0 0 125 0 30 0 125 LEVEL 4 N 10
+HCP_WINDOW TCONE 0 0 0 100 0  7 0 100 LEVEL 5 N 20
+
+HCP_WINDOW TCONE 0 0 0 12.5 0 7.5 0 12.5 LEVEL 6 N 10
+HCP_WINDOW TCONE 0 0 0 5 0 5 0 5 LEVEL 7 N 10
+
+## Smoothing step
+SMOOTH_MODE ALL
+# NSMOOTH 15
+
+# report results (# cells, refinement)
+COUNT_POINTS
+
+# -------------------------------------------------- #
+# Write output IMG & restart files
+# -------------------------------------------------- #
+# mesh, mles
+# WRITE_RESTART outfall_base.mles
+WRITE_RESTART outfall_fine.mles
+
+# horizontal plane
+WRITE_IMAGE NAME=./MSH/H_1m GEOM=PLANE 0 1 0 0 1 0 VAR=3d_mesh WIDTH=10
+WRITE_IMAGE NAME=./MSH/H_2m GEOM=PLANE 0 2 0 0 1 0 VAR=3d_mesh WIDTH=10
+WRITE_IMAGE NAME=./MSH/H_5m GEOM=PLANE 0 5 0 0 1 0 VAR=3d_mesh WIDTH=10
+WRITE_IMAGE NAME=./MSH/H_5m GEOM=PLANE 0 10 0 0 1 0 VAR=3d_mesh WIDTH=10
+
+# vertical plane
+WRITE_IMAGE NAME=./MSH/Vx GEOM=PLANE 0 75 0 1 0 0 VAR=3d_mesh WIDTH=10
+WRITE_IMAGE NAME=./MSH/Vz GEOM=PLANE 0 75 0 0 0 1 VAR=3d_mesh WIDTH=10
+
+INTERACTIVE

@@ -12,7 +12,9 @@ Script for analyzing scaling study result
 import numpy as np
 import matplotlib.pyplot as plt
 
-# %% read data from log files
+log_dir = 'log_base'
+
+#%% read data from log files
 
 step = np.arange(0,500)
 step_save= np.arange(-1,500,50)
@@ -35,7 +37,7 @@ for node in num_nodes:
     # print(node)
     time_sec_dict[node]=[]
     norm_spd_dict[node]=[]
-    with open('./log/log.'+str(node),'r') as fp:
+    with open(log_dir+'/log.'+str(node),'r') as fp:
         for line in fp:
             line_split=line.split()
             try:
@@ -80,15 +82,15 @@ for i in range(1,4):
     plt.xlabel('Time step')
     plt.ylabel('Time [sec]')
 #print(mean_norm_spd)
+# plt.show()
+
 
 #%%
 ideal_speedup = np.asarray(num_nodes)/2
 print(ideal_speedup)
 print(time_sec.mean)
-# plt.subplot(131)
-# plt.plot(num_nodes,mean_norm_spd,'o-')
-# plt.title('Mean normalized spd')
-# plt.subplot(132)
+
+plt.figure(4)
 plt.plot(num_nodes,mean_time_sec_comp,'ro-')
 plt.plot(num_nodes,mean_time_sec,'bo-')
 plt.legend(['Computation only','Computation+save'])
@@ -99,9 +101,9 @@ plt.title('Mean time taken for advanding time steps')
 plt.xlabel('# nodes')
 plt.ylabel('Time [sec]')
 plt.grid()
-plt.show()
+# plt.show()
 
-
+plt.figure(5)
 plt.plot(num_nodes,ideal_speedup,'k--')
 plt.plot(num_nodes,mean_time_sec_comp[0]/mean_time_sec_comp,'ro-')
 plt.plot(num_nodes,mean_time_sec[0]/mean_time_sec,'bo-')
