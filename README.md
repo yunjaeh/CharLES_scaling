@@ -17,7 +17,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Computational grid 
 
-|    | # cells | Background cell size (m)| Smallest cell size (m)|
+|Case| # cells | Background cell size (m)| Smallest cell size (m)|
 |----|-------- |-------------------------|-----------------------| 
 |Base| 35M     | 8                       |                       |
 |Fine| 85M     | 6                       |                       |
