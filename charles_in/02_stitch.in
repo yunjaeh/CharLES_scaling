@@ -17,7 +17,9 @@ PART SURF SBIN ./outfall_surfer.sbin
 # Background mesh and refinement
 # -------------------------------------------------- #
 # HCP_DELTA: background resolution in meter
-HCP_DELTA 8
+# HCP_DELTA 8 # base mesh
+HCP_DELTA 6
+
 
 # HCP_WINDOW: refinement around surfaces or in a volume
 # Usage:
@@ -48,7 +50,8 @@ COUNT_POINTS
 # Write output IMG & restart files
 # -------------------------------------------------- #
 # mesh, mles
-WRITE_RESTART outfall_base.mles
+# WRITE_RESTART outfall_base.mles
+WRITE_RESTART outfall_fine.mles
 
 # horizontal plane
 WRITE_IMAGE NAME=./MSH/H_1m GEOM=PLANE 0 1 0 0 1 0 VAR=3d_mesh WIDTH=10
