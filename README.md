@@ -9,24 +9,34 @@
 LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Computational grid 
+
 |    | # cells | Background cell size (m)| Smallest cell size (m)|
 |----|-------- |-------------------------|-----------------------| 
 |Base| 35M     | 8                       |                       |
-|Fine| 85M     | 8                       |                       |
+|Fine| 85M     | 6                       |                       |
 
 - Inflow condition
     - Turbulent ABL with optimization
-    - U_{ref} = 1.67 m/s @ 25 m 
+    - Wind speed and direction from measurement
+    : U_{ref} = 1.67 m/s @ 25 m, WEST
+    - Reynolds stress: similarity relation
+
 - Boundary conditions
     - Top: slip
     - Ground: rough wall, z0 = 0.3 m
     - Two sides: periodic
     - Outlet
 
-### Parallel configuration
- - stampede2 cluster
- - KNL computing nodes (68 CPUs / node)
- - \# nodes & CPUs
+### Scaling study setup
+- stampede2 cluster 
+    - KNL computing nodes
+      Intel Xeon Phi 7250 (68 CPUs / node)
+    - Clock rate: 1.4 Ghz
+    - RAM: 96GB DDR4 plus 16GB high-speed MCDRAM
+    - Max # of nodes for normal job: 256 (17,408 cores)
+    - Max duration: 48 hours
+
+- \# nodes & CPUs
  
 | \# nodes     |  2 |  4 |  8 | 16 | 32 | 64 | 
 |----------    |----|----|----|----|----|----|
