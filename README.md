@@ -15,9 +15,8 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
     (add image)
 
-- Computational grid 
-
-|Case|# cells|Mesh file size(GB)|Restart file size (GB)|Background cell size (m)|Smallest cell size (cm)|
+- Computational grid \
+|Case|# cells|Mesh file \ size(GB)|Restart \ file size (GB)|Background \ cell size (m)|Smallest \ cell size (cm)|
 |----|-------|--                |--                    |------------------------|-----------------------| 
 |Base| 38M   |35                |  9.8                 | 8                      |          5.4          |
 |Fine| 85M   |77                |                      | 6                      |         4.1           |
@@ -55,26 +54,27 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 | \# nodes     |  2 |  4 |  8 | 16 | 32 | 64 | 
 |----------    |----|----|----|----|----|----|
 | \# CPUs      | 136| 272| 544|1088|2196|4352|
-|#Cells / #CPUs (base mesh)|282k|141k|70.7k|35.3k|17.7k|8.84k|
-|#Cells / #CPUs (fine mesh)| | | | | | |
+|#Cells / #CPUs \ (base mesh)|282k|141k|70.7k|35.3k|17.7k|8.84k|
+|#Cells / #CPUs \ (fine mesh)| | | | | | |
 
 
 ### Results:
+##### Base mesh
 (current results only include base mesh case)
 
-- Time taken for advanding time step
+1. Time taken for advanding time step \
 ![time each step](results/time_per_step.png)
 Spike at the very first step and every 50 steps due to
     - Reading mesh, inflow data and previous solution data
     - Writing full filed quantitiy data (.sles file)
 
+2. Mean time for time steps \
 ![mean time](results/mean_time_per_step.png)
-- Mean time for time steps
     - Less computation time with more nodes (CPUs) used
     - 
 
-![Speedup Curve](results/speedup_curve.png)
-- Speedup curve \
-  = Mean time taken for reference case (i.e. # nodes = 2)\
+3. Speedup curve \
+![Speedup Curve](results/speedup_curve.png) \
+    - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2)\
     / Mean time taken for each case
 
