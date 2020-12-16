@@ -24,7 +24,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Inflow condition
     - Turbulent ABL with optimization
-    - Wind speed and direction from measurement..
+    - Wind speed and direction from measurement\
     : U_ref = 1.67 m/s @ 25 m, WEST
     - Reynolds stress: similarity relation
 
@@ -44,7 +44,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
     - Max duration: 48 hours
 
 - Test setup 
-    - Time step: 0.02 sec (base mesh), 0.01 sec (fine mesh) ..
+    - Time step: 0.02 sec (base mesh), 0.01 sec (fine mesh) \
       make CFL# < 1.0
     - Run for 500 time steps
     - Write full solution data every 50 steps
@@ -74,7 +74,7 @@ Spike at the very first step and every 50 steps due to
     - 
 
 ![Speedup Curve](results/speedup_curve.png)
-- Speedup curve ..
-  = Mean time taken for reference case (i.e. # nodes = 2)..
+- Speedup curve \
+  = Mean time taken for reference case (i.e. # nodes = 2)\
     / Mean time taken for each case
 
