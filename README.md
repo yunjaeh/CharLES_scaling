@@ -9,8 +9,7 @@
 LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Computational domain
-    - Domain size: 600 m x 500 m x 150 m \
-    $\quad$ (streamwise x spanwise x vertical)
+    - Domain size: 600 m x 500 m x 150 m (streamwise x spanwise x vertical)
     - Geometries within 100 m from the target house
 
     (add image)
@@ -20,7 +19,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 |Case|# cells|Mesh file size(GB)|Restart file size (GB)|Background cell size (m)|Smallest cell size (cm)|
 |----|-------|--                |--                    |------------------------|-----------------------| 
 |Base| 38M   |35                |  9.8                 | 8                      |          5.4          |
-|Fine| 85M   |77                |                      | 6                      |         4.1           |
+|Fine| 85M   |77                | 22                     | 6                      |         4.1           |
 
 - Inflow condition
     - Turbulent ABL with optimization
@@ -52,12 +51,11 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - \# nodes & CPUs
  
-| \# nodes     |  2 |  4 |  8 | 16 | 32 | 64 | 
-|----------    |----|----|----|----|----|----|
-| \# CPUs      | 136| 272| 544|1088|2196|4352|
-|#Cells / #CPUs (base mesh)|282k|141k|70.7k|35.3k|17.7k|8.84k|
-|#Cells / #CPUs (fine mesh)| | | | | | |
-
+| \# nodes                  |  2 |  4 |  8  |  16 |  32 |  64 | 
+|----------                 |----|----|---- | ----| ----| ----|
+| \# CPUs                   | 136| 272| 544 | 1088| 2196| 4352|
+|#Cells / #CPUs (base mesh) |282k|141k|70.7k|35.3k|17.7k|8.84k|
+|#Cells / #CPUs (fine mesh) |    |312k|156k |78.2k|39.1k|19.5k|
 
 ### Results:
 ##### Base mesh
