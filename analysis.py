@@ -12,7 +12,21 @@ Script for analyzing scaling study result
 import numpy as np
 import matplotlib.pyplot as plt
 
+## base mesh
 log_dir = 'log_base'
+num_cells = 38475335
+num_nodes = [2, 4, 8, 16, 32, 64]
+
+## fine mesh
+log_dir = 'log_fine'
+num_cells = 85041048
+num_nodes = [4, 8, 16, 32, 64]
+
+
+for node in num_nodes:
+    print('# nodes:', node,
+          ', # cores:', 68*node,
+          ', # cells/core:', num_cells/(68*node))
 
 #%% read data from log files
 
@@ -23,13 +37,7 @@ step_data = np.ones(len(step), np.bool)
 step_data[step_save] = 0
 # print(step,step_save)
 
-num_cells = 38475335
-num_nodes = [2, 4, 8, 16, 32, 64]
 
-for node in num_nodes:
-    print('# nodes:', node,
-          ', # cores:', 68*node,
-          ', # cells/core:', num_cells/(68*node))
 time_sec_dict = dict()
 norm_spd_dict = dict()
 
@@ -77,7 +85,7 @@ for node in num_nodes:
 
 for i in range(1,4):
     plt.figure(i)
-    plt.ylim(0,200)
+    # plt.ylim(0,200)
     plt.legend(num_nodes,loc='upper right')
     plt.xlabel('Time step')
     plt.ylabel('Time [sec]')
@@ -86,7 +94,7 @@ for i in range(1,4):
 
 
 #%%
-ideal_speedup = np.asarray(num_nodes)/2
+ideal_speedup = np.asarray(num_nodes)/num_nodes[0]
 print(ideal_speedup)
 print(time_sec.mean)
 
