@@ -62,18 +62,21 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 (current results only include base mesh case)
 
 1. Time taken for advanding time step \
-![time each step](results/time_per_step.png) \
+![time each step base](results/time_per_step_base.png) 
+![time each step fine](results/time_per_step_fine.png) 
 Spike at the very first step and every 50 steps due to
     - Reading mesh, inflow data and previous solution data
     - Writing full filed quantitiy data (.sles file)
 
 2. Mean time for time steps \
-![mean time](results/mean_time_per_step.png) \
+![mean time](results/mean_time_per_step.png) 
     - Less computation time with more nodes (CPUs) used
     - 
 
 3. Speedup curve \
-![Speedup Curve](results/speedup_curve.png) \
+![Speedup Curve](results/speedup_curve.png) 
     - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2)\
     / Mean time taken for each case
 
+4. Ratio to ideal speedup \
+![Ratio to Ideal](results/ratio_to_ideal.png) 
