@@ -140,9 +140,33 @@ for key in enumerate(cases):
     plt.legend(['Ideal','Computation only','Computation + data IO',])
     
 plt.savefig('results/speedup_curve.png')
+
+
+
+#%% speedup curve comparison: base & fine
+
+plt.figure(figsize=(8,6))
+su_ideal['base'] = np.asarray(num_nodes['base'])/num_nodes['base'][0]
+su_comp['base']  = mean_time_sec_comp['base'][0]/mean_time_sec_comp['base']
+su_comp['fine']  = mean_time_sec_comp['fine'][0]/mean_time_sec_comp['fine']
+    
+plt.plot(num_nodes['base'],su_ideal['base'],'k.--')
+plt.plot(num_nodes['fine'],su_comp['fine']*2,'b.-')
+plt.plot(num_nodes['base'],su_comp['base'],'r.-')
+    
+plt.xticks(num_nodes['base'])
+plt.yticks(range(0,33,4))
+
+plt.grid()
+plt.xlabel('# nodes')
+plt.ylabel('Speedup')
+plt.title('Speedup curve')
+plt.legend(['Ideal','Fine','Base'])
+
+plt.savegif('results/speedup_curve2.png')
+
 #%% percentage
 
-  
 plt.figure(figsize=(8,5))
 plt.plot(num_nodes['base'],su_ideal['base']/su_ideal['base'],'k.--')
 plt.plot(num_nodes['fine'],su_comp['fine']/su_ideal['fine'],'b.--')
