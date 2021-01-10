@@ -17,7 +17,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 - Computational grid 
 
 |Case|# cells|Mesh file size(GB)|Restart file size (GB)|Background cell size (m)|Smallest cell size (cm)|
-|----|-------|--                |--                    |------------------------|-----------------------| 
+|----|-------|--                |--                    |------------------------|-----------------------|
 |Base| 38M   |35                |  9.8                 | 8                      |          5.4          |
 |Fine| 85M   |77                | 22                     | 6                      |         4.1           |
 
@@ -50,8 +50,8 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
     - Interpolate initial data from the results using coarse mesh
 
 - \# nodes & CPUs
- 
-| \# nodes                  |  2 |  4 |  8  |  16 |  32 |  64 | 
+
+| \# nodes                  |  2 |  4 |  8  |  16 |  32 |  64 |
 |----------                 |----|----|---- | ----| ----| ----|
 | \# CPUs                   | 136| 272| 544 | 1088| 2196| 4352|
 |#Cells / #CPUs (base mesh) |282k|141k|70.7k|35.3k|17.7k|8.84k|
@@ -75,8 +75,19 @@ Spike at the very first step and every 50 steps due to
 
 3. Speedup curve \
 ![Speedup Curve](results/speedup_curve.png) 
-    - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2)\
+    - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2 for base, # nodes = 4 for fine)\
     / Mean time taken for each case
 
+
+
+![Speedup Curve](results/speedup_curve2.png)
+
+- Both speedup curves in one plot 
+  - Ideal speedup curves are different for base and fine cases because the reference point differs in each case (# nodes = 2 for base, # nodes = 4 for fine)
+  - The speedup curve of the fine mesh case is multiplied by 2 \
+    (This makes the ideal speedup curve for both base and fine cases the same)
+
+
+
 4. Ratio to ideal speedup \
-![Ratio to Ideal](results/ratio_to_ideal.png) 
+   ![Ratio to Ideal](results/ratio_to_ideal.png) 
