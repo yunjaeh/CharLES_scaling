@@ -62,13 +62,17 @@ for node in nodes:
 min_len = len(time_sec['base','16_low_cfl'])
 
 #%%
-fig, ax = plt.subplots(figsize=(5,5))
+fig, axes = plt.subplots(figsize=(10,5),ncols=2)
 for node in nodes:
-    ax.plot(cfl[test_case,node], time_sec[test_case,node],'o')
-ax.legend(['DT=0.02','DT=0.01'])
-ax.set(title='Base case, #Nodes=16', \
-       xlabel='# CFL', ylabel='Time per time step [sec]', \
-       xlim=(0.2, 1.4), ylim=(6,20))
-ax.grid()
+    axes[0].plot(cfl[test_case,node], time_sec[test_case,node],'.')
+    axes[1].plot(cfl[test_case,node], norm_spd[test_case,node],'.')
+    
+axes[0].set(ylabel='Time per time step [sec]', ylim=(5,20))
+axes[1].set(ylabel='Normalized speed [core-s/Mcv/step]', ylim=(0,600))
+
+for ax in axes:
+    ax.legend(['DT=0.02','DT=0.01'])
+    ax.set(xlabel='CFL #', xlim=(0.2, 1.4))
+    ax.grid()
 fig.savefig('results/comparison_dt.png')
 
