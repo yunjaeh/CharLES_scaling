@@ -34,10 +34,8 @@ step_data = np.ones(len(step), np.bool)
 step_data[step_save] = 0
 # print(step,step_save)
 
-
 time_sec = dict()
 norm_spd = dict()
-
 
 for test_case in cases:
     for node in num_nodes[test_case]: 
@@ -163,7 +161,7 @@ plt.ylabel('Speedup')
 plt.title('Speedup curve')
 plt.legend(['Ideal','Fine','Base'])
 
-plt.savegif('results/speedup_curve2.png')
+plt.savefig('results/speedup_curve2.png')
 
 #%% percentage
 
