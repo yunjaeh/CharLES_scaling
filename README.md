@@ -63,9 +63,9 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 ### Results
 1. Time taken for advanding time step \
-    <img src="results/time_per_step_base.png" width="800">
+   <img src="results/time_per_step_base.png" width="800">
 
-  <img src="results/time_per_step_fine.png" width="800"> 
+   <img src="results/time_per_step_fine.png" width="800"> 
 
    <center>Figure 1. Time taken for advancing time step</center>
 
@@ -81,13 +81,13 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 2. Mean time for time steps  
 
-  <img src="results/mean_time_per_step.png" width="600">
+   <img src="results/mean_time_per_step.png" width="600">
 
    <center>Figure 2. Mean time taken for advancing time steps: both base and fine cases</center>
 
    - Less computation time with more nodes (CPUs) used
 
-     <img src="results/comparison_dt.png" width="800">
+    <img src="results/comparison_dt.png" width="1000">
 
   <center>Figure 3. Comparison of computational time between two different time step size (DT): time/time step (left) and normalized speed (right)</center>
 
