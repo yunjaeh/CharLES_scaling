@@ -1,11 +1,12 @@
 # CharLES scaling study
-### Introduction
 - Parallel scaling study using 
 - CharLES Helmholtz solver in Stampede2 cluster
 - Test with 2 meshes in different resolution (base & fine) 
 - 6 different number of nodes (2, 4, 8, 16, 32, 64)
-  
-### Test case
+---
+
+### Simulation setup
+
 LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Computational domain
@@ -33,7 +34,10 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
     - Two sides: periodic
     - Outlet
 
+---
+
 ### Scaling study
+
 - Stampede2 cluster confiuguration
     - KNL computing nodes ..
       Intel Xeon Phi 7250 (68 CPUs / node)
@@ -57,32 +61,58 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 |#Cells / #CPUs (base mesh) |282k|141k|70.7k|35.3k|17.7k|8.84k|
 |#Cells / #CPUs (fine mesh) |    |312k|156k |78.2k|39.1k|19.5k|
 
-### Results:
-##### Base mesh
-(current results only include base mesh case)
-
+### Results
 1. Time taken for advanding time step \
-![time each step base](results/time_per_step_base.png) 
-![time each step fine](results/time_per_step_fine.png) 
-Spike at the very first step and every 50 steps due to
-    - Reading mesh, inflow data and previous solution data
-    - Writing full filed quantitiy data (.sles file)
+  <img src="results/time_per_step_base.png" width="800">
 
-2. Mean time for time steps \
-![mean time](results/mean_time_per_step.png) 
-    - Less computation time with more nodes (CPUs) used
-    - 
+  <img src="results/time_per_step_fine.png" width="800"> 
+
+   <center>Figure 1. Time taken for advancing time step</center>
+
+  
+
+  Spike at the very first step and every 50 steps due to
+
+   - Reading mesh, inflow data and previous solution data
+
+   - Writing full filed quantitiy data (.sles file)
+
+     
+
+2. Mean time for time steps  
+
+  <img src="results/mean_time_per_step.png" width="600">
+
+   <center>Figure 2. Mean time taken for advancing time steps: both base and fine cases</center>
+
+   - Less computation time with more nodes (CPUs) used
+
+     <img src="results/comparison_dt.png" width="400">
+
+  <center>Figure 3. comparison of computational time for advancing each time step using different time step size (DT)</center>
+
+  
+
+  - Base mesh, #Nodes = 16 (#CPUs =1088), #Cells/CPUs = 35.3k 
+  - Computation time for each time step depends on the size of time step (i.e. DT)
+
+  
+  
 
 3. Speedup curve \
-![Speedup Curve](results/speedup_curve.png) 
-    - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2 for base, # nodes = 4 for fine)\
+  <img src="results/speedup_curve.png" width="800">
+
+   <center>Figure 3. Speed up curve for computation only and computation +data IO of base(left, red) and fine(right, blue)</center> 
+
+  - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2 for base, # nodes = 4 for fine)\
     / Mean time taken for each case
 
+  
 
+  <img src="results/speedup_curve2.png" width="600">
 
-![Speedup Curve](results/speedup_curve2.png)
+  <center>Figure 4. speedup curve(computational only) fore both cases in one image</center> 
 
-- Both speedup curves in one plot 
   - Ideal speedup curves are different for base and fine cases because the reference point differs in each case (# nodes = 2 for base, # nodes = 4 for fine)
   - The speedup curve of the fine mesh case is multiplied by 2 \
     (This makes the ideal speedup curve for both base and fine cases the same)
@@ -90,4 +120,4 @@ Spike at the very first step and every 50 steps due to
 
 
 4. Ratio to ideal speedup \
-   ![Ratio to Ideal](results/ratio_to_ideal.png) 
+   <img src="results/ratio_to_ideal.png" width="600"> 
