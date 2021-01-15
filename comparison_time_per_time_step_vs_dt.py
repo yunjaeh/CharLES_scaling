@@ -25,7 +25,7 @@ print('# nodes:', num_node,
       ', # cores:', 68*num_node,
       ', # cells/core:', num_cells/(68*num_node))
 
-nodes=['16','16_low_cfl']
+nodes=['16','16_low_cfl','16_makefile','16_compiler','16_compiler_inflow']
 
 #%% read data from log files
 
@@ -61,9 +61,9 @@ for node in nodes:
                 continue
 min_len = len(time_sec['base','16_low_cfl'])
 
-#%%
+#%% comparison: dt
 fig, axes = plt.subplots(figsize=(10,5),ncols=2)
-for node in nodes:
+for node in nodes[0:2]:
     axes[0].plot(cfl[test_case,node], time_sec[test_case,node],'.')
     axes[1].plot(cfl[test_case,node], norm_spd[test_case,node],'.')
     
@@ -76,3 +76,18 @@ for ax in axes:
     ax.grid()
 fig.savefig('results/comparison_dt.png')
 
+#%% comparison: dt
+fig, axes = plt.subplots(figsize=(6,4))
+
+
+for i in [0,2,3,4]:
+    # axes[0].plot(step, time_sec[test_case,nodes[0]],'.')
+    plt_data = np.transpose(time_sec[test_case,nodes[i]])[step_data]
+    print(i, np.mean(plt_data))
+    axes.plot(i, np.mean(plt_data),'o')
+    
+axes.set(xlabel='Cases', ylabel='Time per time step',\
+         xticklabels=['base','M','M/C', 'M/C/I'], \
+         xticks=[0,2,3,4], ylim=(14,17))
+axes.grid()
+fig.savefig('results/comparison_MCI.png')

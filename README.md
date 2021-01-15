@@ -89,7 +89,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
     <img src="results/comparison_dt.png" width="1000">
 
-  <center>Figure 3. Comparison of computational time between two different time step size (DT): time/time step (left) and normalized speed (right)</center>
+  <center>Figure. Comparison of computational time between two different time step size (DT): time/time step (left) and normalized speed (right)</center>
 
   
 
@@ -99,11 +99,31 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
   
 
+ <img src="results/comparison_MCI.png" width="600">
+
+  <center>Figure. Comparison of computational time between the cases using different settings (right)</center>
+
+- M: change in Makefile.in, 	I:using uniform inflow BC,	C: using Intel compiler instead of gnu compiler	
+
+- Base: no change in neither of M/C/I
+
+- Makefile: Change in Makefile.in, optimization flag (-O2 for stitch, charles, core -> -O3 for charles and core), computational time increases
+
+- Inflow condtion: time decreases
+
+- Change in compiler: no significant change
+
+  
+
+
+
+
+
 
 3. Speedup curve \
     <img src="results/speedup_curve.png" width="800">
 
-   <center>Figure 3. Speed up curve for computation only and computation +data IO of base(left, red) and fine(right, blue)</center> 
+   <center>Figure. Speed up curve for computation only and computation +data IO of base(left, red) and fine(right, blue)</center> 
 
   - Speedup curve = Mean time taken for reference case (i.e. # nodes = 2 for base, # nodes = 4 for fine)\
     / Mean time taken for each case
@@ -112,7 +132,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
   <img src="results/speedup_curve2.png" width="600">
 
-  <center>Figure 4. speedup curve(computational only) fore both cases in one image</center> 
+  <center>Figure. speedup curve(computational only) fore both cases in one image</center> 
 
   - Ideal speedup curves are different for base and fine cases because the reference point differs in each case (# nodes = 2 for base, # nodes = 4 for fine)
   - The speedup curve of the fine mesh case is multiplied by 2 \
