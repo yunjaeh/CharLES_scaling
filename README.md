@@ -74,10 +74,11 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
   Spike at the very first step and every 50 steps due to
 
    - Reading mesh, inflow data and previous solution data
-
    - Writing full filed quantitiy data (.sles file)
 
-     
+
+
+
 
 2. Mean time for time steps  
 
@@ -101,13 +102,12 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
  <img src="results/comparison_MCI.png" width="600">
 
-  <center>Figure. Comparison of computational time between the cases using different settings (right)</center>
+  <center>Figure. Comparison of computational time between the cases using different settings (right), <br>
+      <b>M</b>: change in Makefile.in, 	<b>I</b>:using uniform inflow BC,	<b>C</b>: using Intel compiler instead of gnu compiler</center>	
 
-- M: change in Makefile.in, 	I:using uniform inflow BC,	C: using Intel compiler instead of gnu compiler	
+- Base: no change in neither of M/C/I, fastest among the test cases
 
-- Base: no change in neither of M/C/I
-
-- Makefile: Change in Makefile.in, optimization flag (-O2 for stitch, charles, core -> -O3 for charles and core), computational time increases
+- Change in Makefile.in (optimization flag: -O2 for stitch, charles, core -> -O3 for charles and core), computational time increases
 
 - Inflow condtion: time decreases
 
@@ -137,6 +137,8 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
   - Ideal speedup curves are different for base and fine cases because the reference point differs in each case (# nodes = 2 for base, # nodes = 4 for fine)
   - The speedup curve of the fine mesh case is multiplied by 2 \
     (This makes the ideal speedup curve for both base and fine cases the same)
+
+
 
 
 
