@@ -25,7 +25,7 @@ print('# nodes:', num_node,
       ', # cores:', 68*num_node,
       ', # cells/core:', num_cells/(68*num_node))
 
-nodes=['16','16_low_cfl','16_makefile','16_makefile_inflow','16_compiler','16_compiler_inflow']
+nodes=['16','16_low_cfl','16_makefile','16_makefile_inflow','16_no_output','16_compiler','16_compiler_inflow']
 
 #%% read data from log files
 
@@ -80,14 +80,14 @@ fig.savefig('results/comparison_dt.png')
 fig, axes = plt.subplots(figsize=(6,4))
 
 
-for i in [0,2,3,4,5]:
+for i in [0,2,3,4,5,6]:
     # axes[0].plot(step, time_sec[test_case,nodes[0]],'.')
     plt_data = np.transpose(time_sec[test_case,nodes[i]])[step_data]
     print(i, np.mean(plt_data))
     axes.plot(i, np.mean(plt_data),'o')
     
 axes.set(xlabel='Cases', ylabel='Time per time step',\
-         xticklabels=['base','M','M/I', 'M/C', 'M/C/I'], \
-         xticks=[0,2,3,4,5], ylim=(14,17))
+         xticklabels=['base','M','M/I','M/O', 'M/C', 'M/C/I'], \
+         xticks=[0,2,3,4,5,6], ylim=(14,17))
 axes.grid()
 fig.savefig('results/comparison_MCI.png')

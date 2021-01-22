@@ -103,11 +103,14 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
  <img src="results/comparison_MCI.png" width="600">
 
   <center>Figure. Comparison of computational time between the cases using different settings (right), <br>
-      <b>M</b>: change in Makefile.in, 	<b>I</b>:using uniform inflow BC,	<b>C</b>: using Intel compiler instead of gnu compiler</center>	
+      <b>M</b>: change in Makefile.in, 	<b>I</b>:using uniform inflow BC, <b>O</b>: not writing image output,	<b>C</b>: using Intel compiler instead of gnu compiler</center>	
+
 
 - Base: no change in neither of M/C/I, fastest among the test cases
 
 - Change in Makefile.in (optimization flag: -O2 for stitch, charles, core -> -O3 for charles and core), computational time increases
+
+- Not writing image output files: very small improvement in computation time
 
 - Inflow condtion: time decreases
 
