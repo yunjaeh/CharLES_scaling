@@ -6,7 +6,7 @@
 # release directory or specify the path below:
 # 
 # CTI_HOME=/home/yunjaeh/CharLES/nextgen
-CTI_HOME=/home1/07279/tg865790/nextgen
+CTI_HOME=/home1/07279/tg865790/CharLES/nextgen_dev
 # CTI_HOME=/home/dphilips/codes/nextgen
 #
 # ===================================================
