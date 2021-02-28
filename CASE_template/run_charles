@@ -1,0 +1,10 @@
+#!/bin/bash
+pwd
+nNodes=2
+nCores=$((48*$nNodes))
+
+fInput='01_charles.in'
+fLog='log.test'
+
+mpiexec -n $nCores ../charles.exe -i $fInput | tee $fLog
+

@@ -1,0 +1,197 @@
+# ==========================================
+# CharLES input file for LES validation case
+#   - written by Yunjae Hwang
+#
+# ==========================================
+
+# ==========================================
+# Parameters
+# ==========================================
+# define T_in  293.3
+# define T_out 289.3 
+
+# interval of output data
+# define interval_IMG 10
+define interval_RES 50
+# define interval_SNAPSHOT 25
+# define interval_PC 10
+
+# domain size
+define Lx 500 
+define Ly 150
+define Lz 500
+
+# rotation angle and normal vector
+define theta 0
+define nx cos($(theta)/180*3.141592)
+define ny 0.0
+define nz sin($(theta)/180*3.141592)
+
+# ==========================================
+# Start of script
+# ==========================================
+# including the VERBOSE flag will enhance the information printed to stdout
+VERBOSE
+# REGISTER_SCALAR T
+# T.SC_LAM = 0.71
+# T.SC_T   = 0.71
+
+RESTART = ../OutfallMeshBase_SW_330.mles
+
+# Restart file can be specified by just a mesh or from both a mesh and corresponding solution
+# INIT time=0.0 step=0 u=1.0 0 0 p=0 T=$(T_out) 
+INTERP_FROM_RESTART ../result.sles
+# INTERP_FROM_RESTART ./output/RES/RES.00003000.sles
+INIT time=0.0 step=0
+
+
+# Final step, starting from the step specified with INIT 
+NSTEPS=500
+
+TIMESTEP DT=0.02
+CHECK_INTERVAL=1
+
+# ==========================================
+# Modeling and Boundary Conditions  
+# ==========================================
+# Specification of gas properties
+EOS HELMHOLTZ
+RHO 1.225
+MU 1.789e-5
+HELMHOLTZ_SOS 340
+
+# specification of the sub-gridscale model
+SGS_MODEL=VREMAN
+
+# reset stats or comment out to include the results from the previous run
+RESET_STATS
+STATS u p
+# T
+
+# Boundary Conditions 
+# x0_turb = INFLOW_TURB PROFILE CONSTANT_UTKE 1.5 0 0 0.05 RESET
+# x0 = INFLOW_TURB PROFILE FLUENT_UREY ./inletProf_outfall.prof L 54.0 RESET
+x0_turb     = HOOK  NY 360 NZ 100 UREF 1.67 REFD 25 \
+              xLu=25 xLv=5 xLw=7.5
+#  T $(T_out)
+# x0_turb     = INLET 2.0 0 0 T 0.0
+outlet      = OUTLET_VV 0.0 0.1 0.0 0.0 LOCAL_U
+top         = SLIP
+ground      = WM_ALG_WALL ROUGHNESS_HEIGHT 0.5
+
+# two lateral boundaries: periodic
+buildings   = WM_ALG_WALL
+house       = WM_ALG_WALL
+# T $(T_in)
+
+# buildings   = WALL
+# house       = WALL 
+
+
+# ==========================================
+# Diagnostics
+# ==========================================
+# Write a full restart file every n steps
+WRITE_RESULT NAME=./output/RES/RES INTERVAL=$(interval_RES)
+
+# Write snapshot data every n steps
+# WRITE_SNAPSHOT NAME=./output/SNAPSHOT/UP \
+#	INTERVAL=$(interval_SNAPSHOT) VARS=u p T
+
+# POINT probe
+# PROBE NAME=./output/PT/TH_in GEOM=POINT 0 1 0  \
+#	 VARS=comp(u,0) comp(u,1) comp(u,2) p T
+# PROBE NAME=./output/PT/inlet GEOM=POINT $(x_inlet) $(y_inlet) $(z_inlet) \
+# 	 VARS=comp(u,0) comp(u,1) comp(u,2) p
+# PROBE NAME=./output/PT/outlet GEOM=POINT $(x_outlet) $(y_outlet) $(z_outlet) \
+# 	VARS=comp(u,0) comp(u,1) comp(u,2) p
+
+ 
+# LINE probe
+# PROBE NAME=./output/LINE/TH GEOM=LINE 0 0 0 0 150 0 151 \
+# 	VARS=comp(u,0) comp(u,1) comp(u,2) p T
+# PROBE NAME=./output/LINE/TH_fine GEOM=LINE 0 0 0 0 50 0 500 \
+#	VARS=comp(u,0) comp(u,1) comp(u,2) p T
+
+# ==========================================
+# PNG images 
+# ==========================================
+# vertical & horizontal 
+# WRITE_IMAGE NAME=./output/IMG/V INTERVAL=$(interval_IMG) \
+#		GEOM=Z_PLANE_FRAC 0.5 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMG/H1 INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE 0 1 0 0 1 0 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMG/H2 INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE 0 2 0 0 1 0 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMG/H5 INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE 0 5 0 0 1 0 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMG_ANI/U INTERVAL=$(interval_IMG) \
+#	      TARGET 29.39 39.36 5.315 \
+#	      CAMERA -127 180 342 UP 0.168 0.935 -0.312 \
+#	      SIZE 4400 2200 WIDTH 800 HIDE_ZONES 0,1,3 \
+#	      GEOM PLANE 50 75 0 0 0 1 VAR mag(u) NO_GEOM_BLANKING
+
+# vertical planes
+# WRITE_IMAGE NAME=./output/IMGV/mag INTERVAL=$(interval_IMG) \
+#        WIDTH=10 GEOM=PLANE 0 1 0 0 0 1 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMGV/u INTERVAL=$(interval_IMG) \
+#        WIDTH=10 GEOM=PLANE 0 1 0 0 0 1 VAR=comp(u,0)
+# WRITE_IMAGE NAME=./output/IMGV/v INTERVAL=$(interval_IMG) \
+#        WIDTH=10 GEOM=PLANE 0 1 0 0 0 1 VAR=comp(u,1)
+# WRITE_IMAGE NAME=./output/IMGV/w INTERVAL=$(interval_IMG) \
+#        WIDTH=10 GEOM=PLANE 0 1 0 0 0 1 VAR=comp(u,2)
+# WRITE_IMAGE NAME=./output/IMGV/T INTERVAL=$(interval_IMG) \
+#        WIDTH=10 GEOM=PLANE 0 1 0 0 0 1 VAR=T
+
+# WRITE_IMAGE NAME=./output/IMGV2/T INTERVAL=$(interval_IMG) \
+#         WIDTH=10 GEOM=PLANE 0 1 0 1 0 0 VAR=T
+# WRITE_IMAGE NAME=./output/IMGV2/mag INTERVAL=$(interval_IMG) \
+#         WIDTH=10 GEOM=PLANE 0 1 0 1 0 0 VAR=mag(u)
+# WRITE_IMAGE NAME=./output/IMGV2/u INTERVAL=$(interval_IMG) \
+#         WIDTH=10 GEOM=PLANE 0 1 0 1 0 0 VAR=comp(u,0)
+# WRITE_IMAGE NAME=./output/IMGV2/v INTERVAL=$(interval_IMG) \
+#         WIDTH=10 GEOM=PLANE 0 1 0 1 0 0 VAR=comp(u,1)
+# WRITE_IMAGE NAME=./output/IMGV2/w INTERVAL=$(interval_IMG) \
+#         WIDTH=10 GEOM=PLANE 0 1 0 1 0 0 VAR=comp(u,2)
+
+
+
+
+# inlet & outlet
+# WRITE_IMAGE NAME=./output/IMG_in/u INTERVAL=$(interval_IMG) \
+# 		GEOM=PLANE $(x_inlet) $(y_inlet) $(z_inlet) $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=comp(u,0)
+# WRITE_IMAGE NAME=./output/IMG_in/v INTERVAL=$(interval_IMG) \
+# 		GEOM=PLANE $(x_inlet) $(y_inlet) $(z_inlet) $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=comp(u,1)
+# WRITE_IMAGE NAME=./output/IMG_in/w INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE $(x_inlet) $(y_inlet) $(z_inlet) $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=comp(u,2)
+# WRITE_IMAGE NAME=./output/IMG_in/p INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE $(x_inlet) $(y_inlet) $(z_inlet)  $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=p
+
+# WRITE_IMAGE NAME=./output/IMG_out/u INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE $(x_outlet) $(y_outlet) $(z_outlet) $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=comp(u,0)
+# WRITE_IMAGE NAME=./output/IMG_out/v INTERVAL=$(interval_IMG) \
+#		GEOM=PLANE $(x_outlet) $(y_outlet) $(z_outlet) $(nx) $(ny) $(nz) \
+#		WIDTH=0.2 VAR=comp(u,1)
+# WRITE_IMAGE NAME=./output/IMG_out/w INTERVAL=$(interval_IMG) \
+# 		GEOM=PLANE $(x_outlet) $(y_outlet) $(z_outlet) $(nx) $(ny) $(nz) \
+# 		WIDTH=0.2 VAR=comp(u,2)
+# WRITE_IMAGE NAME=./output/IMG_out/u INTERVAL=$(interval_IMG) \
+# 		GEOM=PLANE $(x_outlet) $(y_outlet) $(z_outlet) $(nx) $(ny) $(nz) \
+# 		WIDTH=0.2 VAR=p
+
+
+# ==========================================
+# Tracer conentration
+# ==========================================
+# WRITE_IMAGE NAME=./output/IMG_CT/V INTERVAL=$(interval_IMG) GEOM=Z_PLANE_FRAC 0.5 VAR=CT
+# WRITE_IMAGE NAME=./output/IMG_CT/y2 INTERVAL=$(interval_IMG) GEOM=PLANE 1.05 0.02 0.55 0 1 0 VAR=CT
+# WRITE_IMAGE NAME=./output/IMG_CT/y4 INTERVAL=$(interval_IMG) GEOM=PLANE 1.05 0.04 0.55 0 1 0 VAR=CT
+# WRITE_IMAGE NAME=./output/IMG_CT/y6 INTERVAL=$(interval_IMG) GEOM=PLANE 1.05 0.06 0.55 0 1 0 VAR=CT
+
+# POINTCLOUD_PROBE NAME=./output/PC/CT INTERVAL=$(interval_PC) PRECISION=FLOAT GEOM=FILE ../input/PC_concentration.txt VARS comp(u,0) comp(u,1) comp(u,2) p CT
+
