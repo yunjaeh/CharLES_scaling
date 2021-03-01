@@ -9,17 +9,20 @@ Created on Mon Mar  1 11:33:17 2021
 import numpy as np
 import matplotlib.pyplot as plt
 
-cases = [('coarse','knl'),('base','knl'), ('fine','knl'), ('base','skx')]
+cases = [('coarse','knl'),('base','knl'), ('fine','knl'), \
+         ('coarse','skx'),('base','skx')]
 
 # {'base':38475335, 'fine':85041048}
 numCPUs ={'knl':68, 'skx':48}
 numCells={('coarse','knl'):21.4e6, ('base','knl'):38.5e6, ('fine','knl'):85.0e6, \
-           ('base','skx'):38.5e6}
+          ('coarse','skx'):21.4e6, ('base','skx'):38.5e6}
 
-numNodes={('coarse','knl'):[2, 4, 8, 16, 32, 64], \
-          ('base','knl'): [2, 4, 8, 16, 32, 64],  \
-          ('fine','knl'): [4, 8, 16, 32, 64],     \
-          ('base','skx'): [2, 4, 8, 16, 32, 64, 128]}
+numNodes={('coarse','knl'): [2, 4, 8, 16, 32, 64],  
+          ('base',  'knl'): [2, 4, 8, 16, 32, 64],  
+          ('fine',  'knl'): [4, 8, 16, 32, 64],     
+          ('coarse','skx'): [2, 4],            
+          ('base',  'skx'): [2, 4, 8, 16, 32, 64, 128]}
+    
 numProcs=dict()
 
 for test_case in cases:
@@ -112,8 +115,6 @@ plt.xticks([10**2, 10**3, 10**4])
 plt.ylim(0, 1001)
 plt.grid(True, which="both", ls="-")
 plt.savefig('results/summary_normalized_speed.png')
-
-
 
 
 
