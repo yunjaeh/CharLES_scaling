@@ -64,16 +64,29 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
     - Interpolate initial data from the results using coarse mesh
 - \# nodes & CPUs
 
-| \# nodes                          | 2    | 4    | 8     | 16    | 32    | 64    |
-| --------------------------------- | ---- | ---- | ----- | ----- | ----- | ----- |
-| \# CPUs (**KNL**)                 | 136  | 272  | 544   | 1088  | 2196  | 4352  |
-| #Cells / #CPUs (coarse mesh, KNL) |      |      |       |       |       |       |
-| #Cells / #CPUs (base mesh, KNL)   | 282k | 141k | 70.7k | 35.3k | 17.7k | 8.84k |
-| #Cells / #CPUs (fine mesh, KNL)   |      | 312k | 156k  | 78.2k | 39.1k | 19.5k |
-|                                   |      |      |       |       |       |       |
-| \# CPUs (**SKX**)                 | 96   | 192  | 384   | 768   | 1536  | 3072  |
-| #Cells / #CPUs (coarse mesh, SKX) | 223k | 111k | 55.7k | 27.9k | 13.9k | 6.97k |
-| #Cells / #CPUs (base mesh, SKX)   | 400k | 200k | 100k  | 50.1k | 25.0k | 12.5k |
+| \# nodes                          | 2    | 4     | 8     | 16    | 32    | 64    |
+| --------------------------------- | ---- | ----- | ----- | ----- | ----- | ----- |
+| \# CPUs (**KNL**)                 | 136  | 272   | 544   | 1088  | 2196  | 4352  |
+| #Cells / #CPUs (coarse mesh, KNL) | 157k | 78.7k | 39.3k | 19.7k | 9,8k  | 4.9k  |
+| #Cells / #CPUs (base mesh, KNL)   | 282k | 141k  | 70.7k | 35.3k | 17.7k | 8.84k |
+| #Cells / #CPUs (fine mesh, KNL)   |      | 312k  | 156k  | 78.2k | 39.1k | 19.5k |
+|                                   |      |       |       |       |       |       |
+| \# CPUs (**SKX**)                 | 96   | 192   | 384   | 768   | 1536  | 3072  |
+| #Cells / #CPUs (coarse mesh, SKX) | 223k | 111k  | 55.7k | 27.9k | 13.9k | 6.97k |
+| #Cells / #CPUs (base mesh, SKX)   | 400k | 200k  | 100k  | 50.1k | 25.0k | 12.5k |
+
+
+
+### Results: Summary
+
+<img src="results/summary.png" width="800">
+
+- Elapsed time - the number of processors used for computation
+- Coarse, base and fine mesh cases using KNL, and base mesh case using SKX node
+- Considers only computation speed not data IO (e.g. saving result and output files)
+- Black dashed lines represent the ideal computation speed for each case
+- Overall, the SKX node performs better than the KNL node
+
 
 
 ### Results 2: KNL vs SKX computational nodes, base mesh
@@ -82,12 +95,14 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
    <img src="results/mean_time_per_step_base_knl_skx.png" width="600">
 
-   <img src="results/log_mean_time_per_step_base_knl_skx.png" width="600">
+   
 
 
 2. Normalized speed
 
 <img src="results/mean_norm_spd_base_knl_skx.png" width="600">
+
+- Without data IO, normalized speed using SKX nodes does not vary with # of nodes unlike KNL nodes
 
 
 
