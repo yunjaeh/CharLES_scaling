@@ -45,10 +45,10 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 - Stampede2 cluster confiuguration
     
-    | Computational node    | CPU                      | # CPUs / node | Clock rate (GHz) | RAM                                   | Max # of nodes (CPUs) | Max duration (hours) |
-    | --------------------- | ------------------------ | ------------- | ---------------- | ------------------------------------- | --------------------- | -------------------- |
-    | KNL (Knights Landing) | Intel Xeon Phi 7250      | 68            | 1.4              | 96GB DDR4 plus 16GB high-speed MCDRAM | 256 (17,408)          | 48                   |
-    | SKX (Skylake)         | Intel Xeon Platinum 8160 | 48            | 2.1              | 192GB DDR4                            | 128 (6144)            | 48                   |
+    | Computational node    | CPU                      | # CPUs / node | Clock rate  | RAM                                   | Max # of nodes (CPUs) |
+    | --------------------- | ------------------------ | ------------- | ----------- | ------------------------------------- | --------------------- |
+    | KNL (Knights Landing) | Intel Xeon Phi 7250      | 68            | 1.4 GHz     | 96GB DDR4 plus 16GB high-speed MCDRAM | 256 (17408)           | 
+    | SKX (Skylake)         | Intel Xeon Platinum 8160 | 48            | 2.1 GHz     | 192GB DDR4                            | 128 (6144)            | 
 
 
 
