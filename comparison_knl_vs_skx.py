@@ -16,6 +16,7 @@ Created on Fri Feb 26 18:03:41 2021
 import numpy as np
 import matplotlib.pyplot as plt
 
+# cases = ['knl']
 cases = ['knl', 'skx']
 
 ## both use base mesh
@@ -25,10 +26,12 @@ mesh, numCells = 'base', {'knl':38475335, 'skx':38475060}
 
 numNodes = {'knl':[2, 4, 8, 16, 32, 64], \
             'skx':[2, 4, 8, 16, 32, 64, 128]}
-
+numProcessors = {'knl':[], 'skx':[]}
+    
 for test_case in cases:
     print('Mesh:', mesh, ', Node:', test_case)
     for node in numNodes[test_case]:
+        numProcessors[test_case].append(node*numCPUs[test_case])
         print('# nodes:', node,
           ', # cores:', (node*numCPUs[test_case]),
           ', # cells/core:', numCells[test_case]/(node*numCPUs[test_case]))
@@ -98,12 +101,12 @@ for test_case in cases:
  
 
 #%% mean time taken for time steps
-
+colorcode='rb'
 plt.figure(figsize=(6,4))
-plt.plot(numNodes['skx'], mean_time_sec['skx'],'b.-')
-plt.plot(numNodes['skx'], mean_time_sec_comp['skx'],'b.--')
-plt.plot(numNodes['knl'], mean_time_sec['knl'],'r.-')
-plt.plot(numNodes['knl'], mean_time_sec_comp['knl'],'r.--')
+for i, case in enumerate(cases):
+    plt.plot(numNodes[case], mean_time_sec[case], colorcode[i]+'.-')
+    plt.plot(numNodes[case], mean_time_sec_comp[case], colorcode[i]+'.--')
+
 
 plt.title('Mean time taken for advanding time steps')
 plt.legend(['skx: computation + data IO','skx: computation only',\
@@ -119,22 +122,22 @@ plt.savefig('results/mean_time_per_step_'+mesh+'_knl_skx.png')
 
 #%% log
 plt.figure(figsize=(6,4))
-plt.loglog(numNodes['skx'], mean_time_sec['skx'],'b.-')
-plt.loglog(numNodes['skx'], mean_time_sec_comp['skx'],'b.--')
-plt.loglog(numNodes['knl'], mean_time_sec['knl'],'r.-')
-plt.loglog(numNodes['knl'], mean_time_sec_comp['knl'],'r.--')
+# plt.loglog(numNodes['skx'], log,'k--')
+for i, case in enumerate(cases):
+    plt.loglog(numProcessors[case], mean_time_sec[case], colorcode[i]+'d-')
+    plt.loglog(numProcessors[case], mean_time_sec_comp[case], colorcode[i]+'d--')
+    plt.loglog(numProcessors[case], mean_time_sec_comp[case][0]/numProcessors[case]*numProcessors[case][0],'k--')
 
-
-plt.title('Mean time taken for advanding time steps')
-plt.legend(['skx: computation + data IO','skx: computation only',\
-            'knl: computation + data IO','knl: computation only'])
-plt.xlabel('log(# nodes)')
-plt.ylabel('log(Time)')
-plt.xticks(np.log(numNodes['knl']))
-plt.xscale("log",base=2)
+# plt.title('Mean time taken for advanding time steps')
+# plt.legend(['skx: computation + data IO','skx: computation only',\
+            # 'knl: computation + data IO','knl: computation only'])
+plt.xlabel('# Processors')
+plt.ylabel('Elapsed time [sec]')
+plt.xticks([10**2, 10**3, 10**4])
+plt.yticks([10**0, 10**1, 10**2])
 
 plt.grid()
-plt.savefig('results/log_mean_time_per_step_'+mesh+'_knl_skx.png')
+# plt.savefig('results/log_mean_time_per_step_'+mesh+'_knl_skx.png')
 
 #%% Mean normalized speed
 
