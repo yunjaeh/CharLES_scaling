@@ -63,6 +63,11 @@ for case in cases:
         timeSec[(case[0], case[1], node)]=timeSecTemp
         normSpd[(case[0], case[1], node)]=normSpdTemp
         
+        # include data IO
+        # meanTimeSec[case].append(np.asarray(timeSecTemp).mean())        
+        # meanNormSpd[case].append(np.asarray(normSpdTemp).mean())
+        
+        # computation only
         meanTimeSec[case].append(np.asarray(timeSecTemp)[step_comp].mean())        
         meanNormSpd[case].append(np.asarray(normSpdTemp)[step_comp].mean())
         
@@ -87,7 +92,31 @@ plt.xticks([10**2, 10**3, 10**4])
 plt.yticks([10**0, 10**1, 10**2])
 
 plt.grid(True, which="both", ls="-")
-plt.savefig('results/summary.png')
+plt.savefig('results/summary_time.png')
+
+
+#%%
+
+plt.figure(figsize=(8,4))
+# plt.loglog(numNodes['skx'], log,'k--')
+for i, case in enumerate(cases):
+    plt.semilogx(numProcs[case], [meanNormSpd[case][0]]*len(numProcs[case]),'k--')
+    plt.semilogx(numProcs[case], meanNormSpd[case], \
+               idCode[case[0]]+cCode[case[1]]+'-', label=case[1]+', '+case[0])
+
+plt.legend()
+plt.title('Norm Spd [core-s/Mcv/step]')
+plt.xlabel('# Processors')
+plt.ylabel('Normalized speed [sec]')
+plt.xticks([10**2, 10**3, 10**4])
+plt.ylim(0, 1001)
+plt.grid(True, which="both", ls="-")
+plt.savefig('results/summary_normalized_speed.png')
+
+
+
+
+
 
 
 

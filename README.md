@@ -44,18 +44,14 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 ### Scaling study
 
 - Stampede2 cluster confiuguration
-    1. KNL computing node (Knights Landing)
-       - Intel Xeon Phi 7250 (68 CPUs / node)
-       - Clock rate: 1.4 GHz
-       - RAM: 96GB DDR4 plus 16GB high-speed MCDRAM
-       - Max # of nodes for normal job: 256 (17,408 cores)
-       - Max duration: 48 hours
-    2. SKX computing node (Skylake)
-       - Intel Xeon Platinum 8160 (48 CPUs / node)
-       - Clcok rate: 2.1 GHz
-       - RAM: 192GB DDR4 
-       - Max # of ndes for normal job: 128 (6144)
-       - Max duration: 48 hours
+    
+    | Computational node    | CPU                      | # CPUs / node | Clock rate (GHz) | RAM                                   | Max # of nodes (CPUs) | Max duration (hours) |
+    | --------------------- | ------------------------ | ------------- | ---------------- | ------------------------------------- | --------------------- | -------------------- |
+    | KNL (Knights Landing) | Intel Xeon Phi 7250      | 68            | 1.4              | 96GB DDR4 plus 16GB high-speed MCDRAM | 256 (17,408)          | 48                   |
+    | SKX (Skylake)         | Intel Xeon Platinum 8160 | 48            | 2.1              | 192GB DDR4                            | 128 (6144)            | 48                   |
+
+
+
 - Test setup 
     - Time step: 0.02 sec (coarse, base mesh), 0.01 sec (fine mesh) \
       make CFL# < 1.0
@@ -79,13 +75,17 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 ### Results: Summary
 
-<img src="results/summary.png" width="800">
+<img src="results/summary_time.png" width="800">
 
 - Elapsed time - the number of processors used for computation
 - Coarse, base and fine mesh cases using KNL, and base mesh case using SKX node
 - Considers only computation speed not data IO (e.g. saving result and output files)
 - Black dashed lines represent the ideal computation speed for each case
 - Overall, the SKX node performs better than the KNL node
+
+<img src="results/summary_normalized_speed.png" width="800">
+
+
 
 
 
