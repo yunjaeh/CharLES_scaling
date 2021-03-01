@@ -80,17 +80,20 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 1. Time per time step 
 
-   <img src="results/mean_time_per_step_knl_skx.png" width="600">
+   <img src="results/mean_time_per_step_base_knl_skx.png" width="600">
+
+   <img src="results/log_mean_time_per_step_base_knl_skx.png" width="600">
+
 
 2. Normalized speed
 
-<img src="results/mean_norm_spd_knl_skx.png" width="600">
+<img src="results/mean_norm_spd_base_knl_skx.png" width="600">
 
 
 
 3. speedup curve
 
-<img src="results/speedup_curve_knl_skx.png" width="800">
+<img src="results/speedup_curve_base_knl_skx.png" width="800">
 
 
 
@@ -99,7 +102,9 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 ### Results 1: KNL computational node, base& fine mesh
 
 1. Time taken for advanding time step \
-   <img src="results/time_per_step_base.png" width="400"> <img src="results/time_per_step_fine.png" width="400"> 
+   <img src="results/time_per_step_base.png" width="600">
+
+   <img src="results/time_per_step_fine.png" width="600"> 
 
    <center>Figure 1. Time taken for advancing time step</center>
 

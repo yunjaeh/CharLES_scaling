@@ -20,13 +20,14 @@ cases = ['knl', 'skx']
 
 ## both use base mesh
 numCPUs  = {'knl': 68,      'skx':48}
-# numCells = {'knl':38475335, 'skx':38475060}
-numCells = {'knl':38475335, 'skx':21399033}
+mesh, numCells = 'base', {'knl':38475335, 'skx':38475060}
+# mesh, numCells = 'coarse', {'knl':21399033, 'skx':21399033}
+
 numNodes = {'knl':[2, 4, 8, 16, 32, 64], \
-            'skx':[2, 4, 8, 16, 32, 64]}
+            'skx':[2, 4, 8, 16, 32, 64, 128]}
 
 for test_case in cases:
-    print('Case:', test_case)
+    print('Mesh:', mesh, ', Node:', test_case)
     for node in numNodes[test_case]:
         print('# nodes:', node,
           ', # cores:', (node*numCPUs[test_case]),
@@ -93,7 +94,7 @@ for test_case in cases:
         plt.ylabel('Time [sec]')
         plt.legend(numNodes[test_case],loc='upper right')
         plt.ylim((0,210))
-    plt.savefig('results/time_per_step_'+test_case+'.png')
+    plt.savefig('results/time_per_step_'+mesh+'_'+test_case+'.png')
  
 
 #%% mean time taken for time steps
@@ -109,15 +110,35 @@ plt.legend(['skx: computation + data IO','skx: computation only',\
             'knl: computation + data IO','knl: computation only'])
 plt.xlabel('# nodes')
 plt.ylabel('Time [sec]')
-plt.xticks(numNodes['knl'])
+plt.xticks(numNodes['skx'])
 plt.yticks(range(0,101,20))
 plt.ylim(0,100)
 plt.grid()
-plt.savefig('results/mean_time_per_step_knl_skx.png')
+plt.savefig('results/mean_time_per_step_'+mesh+'_knl_skx.png')
+
+
+#%% log
+plt.figure(figsize=(6,4))
+plt.loglog(numNodes['skx'], mean_time_sec['skx'],'b.-')
+plt.loglog(numNodes['skx'], mean_time_sec_comp['skx'],'b.--')
+plt.loglog(numNodes['knl'], mean_time_sec['knl'],'r.-')
+plt.loglog(numNodes['knl'], mean_time_sec_comp['knl'],'r.--')
+
+
+plt.title('Mean time taken for advanding time steps')
+plt.legend(['skx: computation + data IO','skx: computation only',\
+            'knl: computation + data IO','knl: computation only'])
+plt.xlabel('log(# nodes)')
+plt.ylabel('log(Time)')
+plt.xticks(np.log(numNodes['knl']))
+plt.xscale("log",base=2)
+
+plt.grid()
+plt.savefig('results/log_mean_time_per_step_'+mesh+'_knl_skx.png')
 
 #%% Mean normalized speed
 
-plt.figure(figsize=(6,4))
+plt.figure(figsize=(8,4))
 plt.plot(numNodes['skx'], mean_norm_spd['skx'],'b.-')
 plt.plot(numNodes['skx'], mean_norm_spd_comp['skx'],'b.--')
 plt.plot(numNodes['knl'], mean_norm_spd['knl'],'r.-')
@@ -128,11 +149,11 @@ plt.legend(['skx: computation + data IO','skx: computation only',\
             'knl: computation + data IO','knl: computation only'])
 plt.xlabel('# nodes')
 plt.ylabel('Time [sec]')
-plt.xticks(numNodes['knl'])
-plt.yticks(range(0,1001,200))
-plt.ylim(0,1000)
+plt.xticks(numNodes['skx'])
+plt.yticks(range(0,1201,200))
+plt.ylim(0,1200)
 plt.grid()
-plt.savefig('results/mean_norm_spd_knl_skx.png')
+plt.savefig('results/mean_norm_spd_'+mesh+'_knl_skx.png')
 
     
 #%% speed up curve
@@ -163,9 +184,7 @@ for key in enumerate(cases):
     plt.title('Speedup curve: '+test_case)
     plt.legend(['Ideal','Computation only','Computation + data IO',])
     
-plt.savefig('results/speedup_curve_knl_skx.png')
-
-
+plt.savefig('results/speedup_curve_'+mesh+'_knl_skx.png')
 
 
 
