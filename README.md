@@ -1,4 +1,5 @@
-# CharLES scaling study
+CharLES scaling study
+
 - Parallel scaling study using 
 - CharLES Helmholtz solver in Stampede2 cluster
 - Test with 3 meshes in different resolution (coarse, base & fine) 
@@ -30,7 +31,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
       : U_ref = 1.67 m/s @ 25 m, \
       WEST (270 deg) for the first test (base & fine mesh using KNL node) and NNW (330 deg) for the second test (two different computational nodes)
 - Reynolds stress: similarity relation
-    
+  
 - Boundary conditions
     - Top: slip
     - Ground: rough wall function with z0 = 0.5 m, 
@@ -77,6 +78,20 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 ### Results 2: KNL vs SKX computational nodes, base mesh
 
+1. Time per time step 
+
+   <img src="results/mean_time_per_step_knl_skx.png" width="600">
+
+2. Normalized speed
+
+<img src="results/mean_norm_spd_knl_skx.png" width="600">
+
+
+
+3. speedup curve
+
+<img src="results/speedup_curve_knl_skx.png" width="800">
+
 
 
 
@@ -84,9 +99,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 ### Results 1: KNL computational node, base& fine mesh
 
 1. Time taken for advanding time step \
-   <img src="results/time_per_step_base.png" width="800">
-
-   <img src="results/time_per_step_fine.png" width="800"> 
+   <img src="results/time_per_step_base.png" width="400"> <img src="results/time_per_step_fine.png" width="400"> 
 
    <center>Figure 1. Time taken for advancing time step</center>
 
