@@ -1,4 +1,4 @@
-CharLES scaling study
+#CharLES scaling study
 
 - Parallel scaling study using 
 - CharLES Helmholtz solver in Stampede2 cluster
@@ -14,8 +14,6 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 - Computational domain
     - Domain size: 600 m x 500 m x 150 m (streamwise x spanwise x vertical)
     - Geometries within 100 m from the target house
-
-    (add image)
 
 - Computational grid 
 
@@ -41,26 +39,25 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
 ---
 
-### Scaling study
+### Scaling study setup
 
-- Stampede2 cluster confiuguration
-    
+- Stampede2 cluster confiuguration (computational nodes)
+  
     | Computational node    | CPU                      | # CPUs / node | Clock rate  | RAM                                   | Max # of nodes (CPUs) |
     | --------------------- | ------------------------ | ------------- | ----------- | ------------------------------------- | --------------------- |
-    | KNL (Knights Landing) | Intel Xeon Phi 7250      | 68            | 1.4 GHz     | 96GB DDR4 plus 16GB high-speed MCDRAM | 256 (17408)           | 
-    | SKX (Skylake)         | Intel Xeon Platinum 8160 | 48            | 2.1 GHz     | 192GB DDR4                            | 128 (6144)            | 
-
+    | KNL (Knights Landing) | Intel Xeon Phi 7250      | 68            | 1.4 GHz     | 96GB DDR4 plus 16GB high-speed MCDRAM | 256 (17408)           |
+    | SKX (Skylake)         | Intel Xeon Platinum 8160 | 48            | 2.1 GHz     | 192GB DDR4                            | 128 (6144)            |
 
 
 - Test setup 
     - Time step: 0.02 sec (coarse, base mesh), 0.01 sec (fine mesh) \
       make CFL# < 1.0
-    - Run for 500 time steps
-    - Write full solution data every 50 steps
+    - Run for 500 time steps with writing full solution data every 50 steps
     - Interpolate initial data from the results using coarse mesh
+
 - \# nodes & CPUs
 
-| \# nodes                          | 2    | 4     | 8     | 16    | 32    | 64    |
+| Computational nodes               | 2    | 4     | 8     | 16    | 32    | 64    |
 | --------------------------------- | ---- | ----- | ----- | ----- | ----- | ----- |
 | \# CPUs (**KNL**)                 | 136  | 272   | 544   | 1088  | 2196  | 4352  |
 | #Cells / #CPUs (coarse mesh, KNL) | 157k | 78.7k | 39.3k | 19.7k | 9,8k  | 4.9k  |
@@ -72,22 +69,26 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 | #Cells / #CPUs (base mesh, SKX)   | 400k | 200k  | 100k  | 50.1k | 25.0k | 12.5k |
 
 
-
-### Results: Summary
+--- 
+### Summary of results
 
 <img src="results/summary_time.png" width="800">
 
-- Elapsed time - the number of processors used for computation
+<center>Figure. Elapsed time vs # of Processors used for computation: different colors indicate different computational nodes, KNL(red) & SKX(blue); and different markers represent differet meshes </center>
+
 - Coarse, base and fine mesh cases using KNL, and base mesh case using SKX node
-- Considers only computation speed not data IO (e.g. saving result and output files)
+- Considers only computation speed not data IO (e.g. reading input files for inflow BC, and saving result and output files)
 - Black dashed lines represent the ideal computation speed for each case
 - Overall, the SKX node performs better than the KNL node
 
 <img src="results/summary_normalized_speed.png" width="800">
 
+<center>Figure. Normalized speed [CPU time for time step / # of cells / # of step] of all simulations </center>
 
+- SKX node performs better than the KNL
+- 
 
-
+---
 
 ### Results 2: KNL vs SKX computational nodes, base mesh
 
@@ -121,7 +122,7 @@ LES simulation for natural ventilation in urban slums of Dhaka, Bangladesh
 
    <img src="results/time_per_step_fine.png" width="600"> 
 
-   <center>Figure 1. Time taken for advancing time step</center>
+   <center>Figure. Time taken for advancing time step</center>
 
   
 
